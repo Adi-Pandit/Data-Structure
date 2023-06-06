@@ -49,7 +49,7 @@ int isBalance(char *exp)
 			if(top==NULL)
 				return 0;
 			x=Pop();
-			if((int)(exp[i])-(int)(x)!=1 && (int)(exp[i])-(int)(x)!=2 && (int)(exp[i])-(int)(x)!=2)
+			if((int)(exp[i])-(int)(x)!=1 && (int)(exp[i])-(int)(x)!=2)
 				return 0;
 		}
 	}
