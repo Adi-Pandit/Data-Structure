@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include "Queue.h"
+#include <stdio.h>
+#include "Stack.h"
 
 struct Node *root = NULL;
 
@@ -75,13 +75,85 @@ void PostOrder(struct Node *p)
   }
 }
 
+void IPreOrder(struct Node *p)
+{
+  struct Stack st;
+  createStack(&st,100);
+
+  while(p!=NULL || !isEmptyStack(st))
+  {
+    if(p!=NULL)
+    {
+      printf("%d ",p->data);
+      push(&st,p);
+      p=p->lchild;
+    }
+    else
+    {
+      p=pop(&st);
+      p=p->rchild;
+    }
+  }
+}
+
+void IInOrder(struct Node *p)
+{
+  struct Stack st;
+  createStack(&st,100);
+
+  while(p!=NULL || !isEmptyStack(st))
+  {
+    if(p!=NULL)
+    {
+      push(&st,p);
+      p=p->lchild;
+    }
+    else
+    {
+      p=pop(&st);
+      printf("%d ",p->data);
+      p=p->rchild;
+    }
+  }
+}
+
+void IPostOrder(struct Node *p)  //For this convert stack.h to long int instead of struct Node *
+{
+  struct Stack st;
+  createStack(&st,100);
+  long int temp;
+
+  while(p!=NULL || !isEmptyStack(st))
+  {
+    if(p!=NULL)
+    {
+      push(&st,p);
+      p=p->lchild;
+    }
+    else
+    {
+      temp = pop(&st);
+      if(temp>0)
+      {
+        push(&st,-temp);
+        p=((struct Node *)temp)->rchild;
+      }
+      else
+      {
+        printf("%d ",((struct Node *)-temp)->data);
+        p=NULL;
+      }
+    }
+  }
+}
+
 int main()
 {
   TreeCreate();
   printf("\nPre-order: ");
-  PreOrder(root);
+  IPreOrder(root);
   printf("\nIn-order: ");
-  InOrder(root);
+  IInOrder(root);
   printf("\nPost-order: ");
-  PostOrder(root);
+  IPostOrder(root);
 }
