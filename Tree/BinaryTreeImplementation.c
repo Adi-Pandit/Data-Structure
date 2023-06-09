@@ -147,6 +147,30 @@ void IPostOrder(struct Node *p)  //For this convert stack.h to long int instead 
   }
 }
 
+void LevelOrder(struct Node *p)
+{
+  struct Queue q;
+  create(&q,100);
+
+  printf("%d ",p->data);
+  enqueue(&q,p);
+
+  while(!isEmpty(q))
+  {
+    p=dequeue(&q);
+    if(p->lchild)
+    {
+      printf("%d ",p->lchild->data);
+      enqueue(&q,p->lchild);
+    }
+    if(p->rchild)
+    {
+      printf("%d ",p->rchild->data);
+      enqueue(&q,p->rchild);
+    }
+  }
+}
+
 int main()
 {
   TreeCreate();
@@ -156,4 +180,6 @@ int main()
   IInOrder(root);
   printf("\nPost-order: ");
   IPostOrder(root);
+  printf("\nLevel-order: ");
+  LevelOrder(root);
 }
