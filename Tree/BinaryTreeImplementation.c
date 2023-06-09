@@ -171,6 +171,60 @@ void LevelOrder(struct Node *p)
   }
 }
 
+int Count(struct Node *p)
+{
+  int x=0,y=0;
+  if(p!=NULL)
+  {
+    x=Count(p->lchild);
+    y=Count(p->rchild);
+    return x+y+1;
+  }
+  return 0;
+}
+
+int CountNodeDeg2(struct Node *p)
+{
+  int x=0,y=0;
+  if(p!=NULL)
+  {
+    x=CountNodeDeg2(p->lchild);
+    y=CountNodeDeg2(p->rchild);
+    if(p->lchild && p->rchild)
+      return x+y+1;
+    else  
+      return x+y;
+  }
+  return 0;
+}
+
+int SumOfValues(struct Node *p)
+{
+  int x=0,y=0;
+  if(p!=NULL)
+  {
+    x=SumOfValues(p->lchild);
+    y=SumOfValues(p->rchild);
+    return x+y+p->data;
+  }
+  return 0;
+}
+
+int Height(struct Node *p)
+{
+  int x=0,y=0;
+  if(p!=NULL)
+  {
+    x=Height(p->lchild);
+    y=Height(p->rchild);
+    if(x>y)
+      return x+1;
+    else  
+      return y+1;
+  }
+  return 0;
+}
+
 int main()
 {
   TreeCreate();
@@ -182,4 +236,8 @@ int main()
   IPostOrder(root);
   printf("\nLevel-order: ");
   LevelOrder(root);
+  printf("\nNo. of nodes: %d",Count(root));
+  printf("\nNo. of nodes with degree 2: %d",CountNodeDeg2(root));
+  printf("\nSum of values of node: %d",SumOfValues(root));
+  printf("\nHeight of tree: %d",Height(root));
 }
