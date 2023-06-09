@@ -183,21 +183,6 @@ int Count(struct Node *p)
   return 0;
 }
 
-int CountNodeDeg2(struct Node *p)
-{
-  int x=0,y=0;
-  if(p!=NULL)
-  {
-    x=CountNodeDeg2(p->lchild);
-    y=CountNodeDeg2(p->rchild);
-    if(p->lchild && p->rchild)
-      return x+y+1;
-    else  
-      return x+y;
-  }
-  return 0;
-}
-
 int SumOfValues(struct Node *p)
 {
   int x=0,y=0;
@@ -225,6 +210,66 @@ int Height(struct Node *p)
   return 0;
 }
 
+int LeafNode(struct Node *p)
+{
+  int x=0,y=0;
+  if(p!=NULL)
+  {
+    x=LeafNode(p->lchild);
+    y=LeafNode(p->rchild);
+    if(p->lchild==NULL && p->rchild==NULL)
+      return x+y+1;
+    else  
+      return x+y;
+  }
+  return 0;
+}
+
+int NodeWithDeg1(struct Node *p)
+{
+  int x=0,y=0;
+  if(p!=NULL)
+  {
+    x=NodeWithDeg1(p->lchild);
+    y=NodeWithDeg1(p->rchild);
+    if(p->lchild!=NULL ^ p->rchild!=NULL)
+      return x+y+1;
+    else  
+      return x+y;
+  }
+  return 0;
+}
+
+int NodeWithDeg1Or2(struct Node *p)
+{
+  int x=0,y=0;
+  if(p!=NULL)
+  {
+    x=NodeWithDeg1Or2(p->lchild);
+    y=NodeWithDeg1Or2(p->rchild);
+    if(p->lchild!=NULL || p->rchild!=NULL)
+      return x+y+1;
+    else  
+      return x+y;
+  }
+  return 0;
+}
+
+int CountNodeDeg2(struct Node *p)
+{
+  int x=0,y=0;
+  if(p!=NULL)
+  {
+    x=CountNodeDeg2(p->lchild);
+    y=CountNodeDeg2(p->rchild);
+    if(p->lchild && p->rchild)
+      return x+y+1;
+    else  
+      return x+y;
+  }
+  return 0;
+}
+
 int main()
 {
   TreeCreate();
@@ -237,7 +282,11 @@ int main()
   printf("\nLevel-order: ");
   LevelOrder(root);
   printf("\nNo. of nodes: %d",Count(root));
-  printf("\nNo. of nodes with degree 2: %d",CountNodeDeg2(root));
-  printf("\nSum of values of node: %d",SumOfValues(root));
+  printf("\nSum of values of nodes: %d",SumOfValues(root));
   printf("\nHeight of tree: %d",Height(root));
+  printf("\nLeaf nodes: %d",LeafNode(root));
+  printf("\nNo. of nodes with degree 1: %d",NodeWithDeg1(root));
+  printf("\nNo. of nodes with degree 1 or 2: %d",NodeWithDeg1Or2(root));
+  printf("\nNo. of nodes with degree 2: %d",CountNodeDeg2(root));
+  
 }
