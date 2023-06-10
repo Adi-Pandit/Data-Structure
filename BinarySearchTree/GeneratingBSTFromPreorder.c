@@ -27,7 +27,7 @@ void createPre(int pre[],int n)
     }
     else
     {
-      if(pre[i]>p->data && pre[i]<isEmpty(stk)?32000:stackTop(stk)->data)
+      if(pre[i]>p->data && pre[i]<(isEmpty(stk)?32000:stackTop(stk)->data))
       {
         t=(struct Node *)malloc(sizeof(struct Node));
         t->data=pre[i++];
@@ -56,7 +56,7 @@ void InOrder(struct Node *p)
 
 int main()
 {
-  int pre[]={40,20,30,60,50,10,70};
-  createPre(pre,7);
+  int pre[]={30,20,10,15,25,40,50,45};
+  createPre(pre,8);
   InOrder(root);
 }
