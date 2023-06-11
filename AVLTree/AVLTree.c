@@ -63,6 +63,43 @@ struct Node *LRRotation(struct Node *p)
   return plr;
 }
 
+struct Node *RRRotation(struct Node *p)
+{
+  struct Node *pr=p->rchild;
+  struct Node *prl=p->lchild;
+
+  pr->lchild=p;
+  p->rchild=prl;
+
+  p->height=NodeHeight(p);
+  pr->height=NodeHeight(p);
+
+  if(root=p)
+    root=pr;
+
+  return pr;
+}
+
+struct Node *RLRotation(struct Node *p)
+{
+  struct Node *pr=p->rchild;
+  struct Node *prl=pr->lchild;
+
+  p->rchild=prl->lchild;
+  pr->lchild=prl->rchild;
+
+  prl->lchild=p;
+  prl->rchild=pr;
+
+  p->height=NodeHeight(p);
+  pr->height=NodeHeight(pr);
+  prl->height=NodeHeight(prl);
+
+  if(root==p)
+    root=prl;
+  return prl;
+}
+
 struct Node *RInsert(struct Node *p,int key)
 {
   struct Node *t=NULL;
@@ -87,6 +124,10 @@ struct Node *RInsert(struct Node *p,int key)
     return LLRotation(p);
   else if(BalanceFactor(p)==2 && BalanceFactor(p->lchild)==-1)
     return LRRotation(p);
+  else if(BalanceFactor(p)==-2 && BalanceFactor(p->rchild)==-1)
+    return RRRotation(p);
+  else if(BalanceFactor(p)==-2 && BalanceFactor(p->rchild)==1)
+    return RLRotation(p);
 
   return p;
 }
@@ -105,8 +146,9 @@ void InOrder(struct Node *p)
 int main()
 {
   root=RInsert(root,10);
-  RInsert(root,5);
-  RInsert(root,2);
+  RInsert(root,15);
+  RInsert(root,13);
 
   InOrder(root);
+  return 0;
 }
